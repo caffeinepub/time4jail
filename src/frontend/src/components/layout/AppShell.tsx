@@ -1,10 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { SiGithub, SiX } from 'react-icons/si';
 import { Heart, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
 import SettingsDialog from '../settings/SettingsDialog';
 
 interface AppShellProps {
@@ -12,19 +11,42 @@ interface AppShellProps {
   isAuthenticated?: boolean;
 }
 
+const POST_LOGIN_SPLASH_KEY = 'time4jail_post_login_splash_shown';
+
 export default function AppShell({ children, isAuthenticated }: AppShellProps) {
   const { clear } = useInternetIdentity();
   const queryClient = useQueryClient();
   const [showSettings, setShowSettings] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
 
   const handleLogout = async () => {
+    // Clear the post-login splash flag so it shows again on next sign-in
+    sessionStorage.removeItem(POST_LOGIN_SPLASH_KEY);
     await clear();
     queryClient.clear();
   };
 
+  // Measure header height to prevent content overlap
+  useEffect(() => {
+    const measureHeader = () => {
+      if (headerRef.current) {
+        const height = headerRef.current.offsetHeight;
+        setHeaderHeight(height);
+      }
+    };
+
+    measureHeader();
+    window.addEventListener('resize', measureHeader);
+    return () => window.removeEventListener('resize', measureHeader);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+      <header 
+        ref={headerRef}
+        className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50"
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
@@ -74,7 +96,10 @@ export default function AppShell({ children, isAuthenticated }: AppShellProps) {
         </div>
       </header>
 
-      <main className="flex-1">
+      <main 
+        className="flex-1" 
+        style={{ paddingTop: headerHeight > 0 ? `${headerHeight}px` : undefined }}
+      >
         {children}
       </main>
 

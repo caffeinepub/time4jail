@@ -1,38 +1,68 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Landing page hero copy update: “Document it all” + “Zero Tolerance for Stalking”",
+  "title": "Harsher, accountability-focused (non-violent) user-facing copy updates",
   "requirements": [
     {
-      "id": "REQ-19",
-      "summary": "Replace the HomePage hero headline/supporting copy to center “Document it all” and add the prominent slogan “Zero Tolerance for Stalking”, without changing the existing login/logout UI behavior.",
+      "id": "REQ-50",
+      "summary": "Revise Message Generator templates for tones 'firm', 'severe', and 'very harsh' to be harsher and women-centered with legal-accountability framing, while remaining safety-focused and non-violent/non-harassing.",
       "acceptanceCriteria": [
-        "On the public landing page (HomePage), the hero headline no longer contains the phrase “Four Years of Hell.”",
-        "The landing page prominently displays the exact text “Document it all” (case-insensitive acceptable only if user-facing design requires, but the words must be exact).",
-        "The landing page prominently displays the exact text “Zero Tolerance for Stalking”.",
-        "The login/authentication UI and flow on the landing page remains unchanged (same buttons/actions and behavior)."
+        "In frontend/src/utils/messageGenerator.ts, the generated messages for tones 'firm', 'severe', and 'very harsh' use noticeably harsher wording toward the stalker (e.g., clearer legal-accountability framing, stronger boundary language) while remaining non-violent and not encouraging harassment or harm.",
+        "No template includes violent language, calls for vigilante action, or instructions to harass the stalker.",
+        "MessageGeneratorPage continues to render and update the generated message for each tone without runtime errors."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/HomePage.tsx",
+          "path": "frontend/src/utils/messageGenerator.ts",
           "operation": "modify",
-          "description": "Update the hero headline and supporting paragraph copy to remove “Four Years of Hell” and make “Document it all” and “Zero Tolerance for Stalking” prominent user-facing text, while keeping the existing Internet Identity login/logout buttons, labels, actions, and conditional rendering intact. Continue using the existing shadcn-ui components (Button/Card/Badge) for consistent styling; verify the component's usage instructions before implementing."
+          "description": "Update the deterministic template strings for 'firm', 'severe', and 'very harsh' to strengthen boundary language and legal-accountability framing (e.g., explicit documentation, intent to report/seek protective orders) while avoiding any violent language, actionable threats, or encouragement of harassment/harm."
+        },
+        {
+          "path": "frontend/src/pages/workflow/MessageGeneratorPage.tsx",
+          "operation": "modify",
+          "description": "Confirm the page continues to generate and update messages for all tone options using the updated templates (no logic/routing changes; ensure no runtime errors after copy updates)."
         }
       ]
     },
     {
-      "id": "REQ-20",
-      "summary": "Rewrite the HomePage hero women-centered AI support line into a safety-focused, non-harassing statement aligned with documentation and legal/accountability pathways.",
+      "id": "REQ-51",
+      "summary": "Expand the fixed post-login splash message pool with additional harsher, accountability-focused motivational lines while preserving the required existing messages verbatim.",
       "acceptanceCriteria": [
-        "The landing page includes a clear women-centered AI support statement.",
-        "The statement does not include language advocating harassment, threats, violence, or “punish men” phrasing.",
-        "The statement remains consistent with the app’s purpose (documenting incidents/evidence and supporting reporting/legal readiness)."
+        "In frontend/src/utils/postLoginSplashMessages.ts, the existing required exact messages remain present verbatim: \"Send him to jail.\", \"No meant no.\", \"He will pay for what he did.\", and \"Don't stop until he is in cuffs.\"",
+        "The message pool is expanded or revised so that overall tone is harsher toward the stalker (legal-accountability framing), but still avoids violence, harassment, or calls for harm.",
+        "Post-login splash (frontend/src/components/auth/PostLoginSplash.tsx) continues to show exactly one randomized message from the updated fixed list per splash session."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/HomePage.tsx",
+          "path": "frontend/src/utils/postLoginSplashMessages.ts",
           "operation": "modify",
-          "description": "Replace/introduce the hero-section statement so it is explicitly women-centered and safety-focused (documentation, evidence organization, reporting/legal readiness), and remove any “punish men” or similar harassing/violent language. Keep all user-facing text in English and do not alter authentication flow code/behavior. Continue using existing shadcn-ui typography/layout patterns already present on the page; verify the component's usage instructions before implementing."
+          "description": "Add additional fixed splash messages that reinforce accountability and legal consequences while remaining non-violent and non-harassing; keep the four required exact messages unchanged and present verbatim."
+        },
+        {
+          "path": "frontend/src/components/auth/PostLoginSplash.tsx",
+          "operation": "modify",
+          "description": "Verify the splash continues to select exactly one randomized message per component mount/session (retain existing mount-time selection behavior) after the message pool changes; no auth/routing changes."
+        }
+      ]
+    },
+    {
+      "id": "REQ-52",
+      "summary": "Rewrite 'urgent' evidence summary copy to remain police-appropriate and urgent without labeling the stalker as a \"threat\", keeping deterministic formatting and section structure unchanged.",
+      "acceptanceCriteria": [
+        "In frontend/src/utils/generateEvidenceSummary.ts, the 'urgent' and 'urgent-feminine' tone copy does not label a real person as a \"threat\" and does not include insults or speculation, while maintaining urgent, safety-focused accountability framing.",
+        "Generated evidence summaries remain deterministic and formatted as before (same overall section structure and headings), with only copy changes.",
+        "EvidenceSummaryDialog continues to generate summaries for all tone options without errors."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/generateEvidenceSummary.ts",
+          "operation": "modify",
+          "description": "Adjust only the tone-specific copy for 'urgent' and 'urgent-feminine' (overview/closing text) to remove any 'threat' labeling and any inflammatory/insulting/speculative language, while preserving urgency, police-appropriate framing, and the exact existing report structure/headings and deterministic output behavior."
+        },
+        {
+          "path": "frontend/src/pages/workflow/EvidenceSummaryDialog.tsx",
+          "operation": "modify",
+          "description": "Confirm the dialog continues to generate and display summaries for all tone options using the updated copy without runtime errors (no UI flow changes required)."
         }
       ]
     }

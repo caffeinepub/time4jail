@@ -7,12 +7,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Plus, Upload, FileText, Image, Video, Mic, FileIcon, Clock } from 'lucide-react';
+import { Plus, Upload, FileText, Image, Video, Mic, FileIcon, Clock, ListChecks } from 'lucide-react';
 import { useGetCallerEvidence, useUploadEvidence, useGetCallerIncidents } from '../../hooks/useQueries';
 import { formatTimestamp } from '../../utils/datetime';
 import { validateFile, fileToUint8Array } from '../../utils/files';
 import { ExternalBlob, type EvidenceType } from '../../backend';
 import EvidenceRecordDetail from './EvidenceRecordDetail';
+import EvidenceSummaryDialog from './EvidenceSummaryDialog';
 import type { EvidenceFile } from '../../backend';
 
 export default function EvidenceRecordPage() {
@@ -28,6 +29,7 @@ export default function EvidenceRecordPage() {
   const [linkedIncidentId, setLinkedIncidentId] = useState<string>('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [selectedEvidence, setSelectedEvidence] = useState<EvidenceFile | null>(null);
+  const [showSummary, setShowSummary] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -132,10 +134,18 @@ export default function EvidenceRecordPage() {
             Upload and manage photos, videos, audio, and documents
           </p>
         </div>
-        <Button onClick={() => setShowForm(!showForm)}>
-          <Plus className="w-4 h-4 mr-2" />
-          Upload Evidence
-        </Button>
+        <div className="flex gap-2">
+          {evidence.length > 0 && (
+            <Button onClick={() => setShowSummary(true)} variant="outline">
+              <ListChecks className="w-4 h-4 mr-2" />
+              Summarize All
+            </Button>
+          )}
+          <Button onClick={() => setShowForm(!showForm)}>
+            <Plus className="w-4 h-4 mr-2" />
+            Upload Evidence
+          </Button>
+        </div>
       </div>
 
       {showForm && (
@@ -302,6 +312,14 @@ export default function EvidenceRecordPage() {
           evidence={selectedEvidence}
           open={!!selectedEvidence}
           onClose={() => setSelectedEvidence(null)}
+        />
+      )}
+
+      {showSummary && (
+        <EvidenceSummaryDialog
+          evidence={evidence}
+          open={showSummary}
+          onClose={() => setShowSummary(false)}
         />
       )}
     </div>

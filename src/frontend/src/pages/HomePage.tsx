@@ -2,11 +2,78 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
-import { Lock, Unlock, Shield, Clock, AlertTriangle, FileText, Eye, Scale } from 'lucide-react';
+import { Shield, Clock, AlertTriangle, FileText, Eye, Scale, Unlock, ArrowRight } from 'lucide-react';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { checkCtaClickability } from '../utils/landingCtaRegressionCheck';
 
 export default function HomePage() {
-  const { identity, login, clear, isLoggingIn, loginStatus } = useInternetIdentity();
+  const { identity, login, isLoggingIn, loginStatus, isInitializing } = useInternetIdentity();
   const isAuthenticated = !!identity && !identity.getPrincipal().isAnonymous();
+  const [loginQueued, setLoginQueued] = useState(false);
+  const ctaButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Development-only regression log when authenticated user sees HomePage
+  useEffect(() => {
+    if (import.meta.env.DEV && isAuthenticated) {
+      console.error(
+        '❌ [DEV] Authenticated-routing regression: HomePage is rendering while user is authenticated. User should be seeing AuthenticatedApp instead.'
+      );
+    }
+  }, [isAuthenticated]);
+
+  // Handle login with queuing for initialization
+  const handleLogin = useCallback(() => {
+    if (isInitializing) {
+      // Queue the login to happen after initialization
+      setLoginQueued(true);
+    } else {
+      setLoginQueued(false);
+      login();
+    }
+  }, [isInitializing, login]);
+
+  // Execute queued login when initialization completes
+  if (loginQueued && !isInitializing && loginStatus === 'idle') {
+    setLoginQueued(false);
+    login();
+  }
+
+  // Navigate to Incidents tab in authenticated workflow
+  const handleGoToIncidents = useCallback(() => {
+    window.location.hash = 'incidents';
+  }, []);
+
+  // Button is disabled only during active login attempt or when queued
+  const isButtonDisabled = isLoggingIn || loginQueued;
+  const buttonText = isLoggingIn || loginQueued ? 'Connecting...' : 'Report him!';
+
+  // Development-only regression check for CTA clickability
+  useEffect(() => {
+    if (import.meta.env.DEV && !isAuthenticated && ctaButtonRef.current) {
+      const runCheck = () => {
+        if (ctaButtonRef.current) {
+          try {
+            checkCtaClickability(ctaButtonRef.current);
+          } catch (error) {
+            console.error('❌ CTA Clickability Check Failed:', error);
+          }
+        }
+      };
+
+      // Run check after layout settles
+      const timeoutId = setTimeout(runCheck, 500);
+
+      // Re-run on resize/orientation changes
+      window.addEventListener('resize', runCheck);
+      window.addEventListener('orientationchange', runCheck);
+
+      return () => {
+        clearTimeout(timeoutId);
+        window.removeEventListener('resize', runCheck);
+        window.removeEventListener('orientationchange', runCheck);
+      };
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -24,41 +91,47 @@ export default function HomePage() {
         </h2>
         
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-          You deserve safety and justice. This is your secure, private space to document every incident, organize your evidence, and prepare for legal action. AI-powered tools help women build comprehensive documentation that supports reporting to authorities and strengthens accountability through the legal system. Your evidence is stored safely on the blockchain—tamper-proof and always accessible when you need it.
+          He thinks he can terrorize you without consequences. He's wrong. This platform arms women with AI-powered tools to build bulletproof documentation that puts stalkers behind bars. Every incident you record, every piece of evidence you upload becomes part of an unbreakable case file designed for one purpose: reporting him to authorities and supporting his prosecution. Your evidence is blockchain-secured, tamper-proof, and ready to help law enforcement hold him accountable—whether that means restraining orders, criminal charges, or jail time.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          {!isAuthenticated ? (
+        {!isAuthenticated && (
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
             <Button
-              onClick={login}
-              disabled={isLoggingIn}
+              ref={ctaButtonRef}
+              onClick={handleLogin}
+              disabled={isButtonDisabled}
               size="lg"
-              className="min-w-[200px] font-bold"
+              className="min-w-[200px] font-bold cursor-pointer"
+              data-testid="landing-cta-report-button"
             >
-              {isLoggingIn ? (
+              {isButtonDisabled ? (
                 <>
                   <Clock className="w-5 h-5 mr-2 animate-spin" />
-                  Connecting...
+                  {buttonText}
                 </>
               ) : (
                 <>
                   <Unlock className="w-5 h-5 mr-2" />
-                  Start Documenting
+                  {buttonText}
                 </>
               )}
             </Button>
-          ) : (
+          </div>
+        )}
+
+        {isAuthenticated && (
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
             <Button
-              onClick={clear}
-              variant="outline"
+              onClick={handleGoToIncidents}
               size="lg"
-              className="min-w-[200px] font-bold"
+              className="min-w-[200px] font-bold cursor-pointer"
+              data-testid="authenticated-go-to-incidents-button"
             >
-              <Lock className="w-5 h-5 mr-2" />
-              Sign Out
+              <ArrowRight className="w-5 h-5 mr-2" />
+              Go to Incidents
             </Button>
-          )}
-        </div>
+          </div>
+        )}
 
         {loginStatus === 'loginError' && (
           <div className="mt-6 p-4 rounded-lg bg-destructive/10 border border-destructive/20 max-w-md mx-auto">
@@ -69,35 +142,6 @@ export default function HomePage() {
           </div>
         )}
       </section>
-
-      {/* Status Section */}
-      {isAuthenticated && (
-        <section className="max-w-4xl mx-auto mb-16">
-          <Card className="border-2">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-2xl font-black">You're Protected</CardTitle>
-                  <CardDescription className="mt-2">
-                    Your identity is secure and your documentation is private
-                  </CardDescription>
-                </div>
-                <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
-                  <Shield className="w-3 h-3 mr-1" />
-                  Secured
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="p-4 rounded-lg bg-muted/50 border border-border">
-                <p className="text-sm font-mono text-muted-foreground break-all">
-                  Principal: {identity.getPrincipal().toString()}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-      )}
 
       {/* Features Grid */}
       <section className="max-w-6xl mx-auto">

@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Update the public landing page hero messaging to focus on “Document it all” and prominently display “Zero Tolerance for Stalking,” while keeping the existing authentication UI/flow unchanged.
+**Goal:** Make user-facing generated copy harsher and more accountability-focused toward the stalker (women-centered, legal framing) while staying non-violent, non-harassing, and police-appropriate.
 
 **Planned changes:**
-- Replace the current hero headline/supporting copy so it no longer includes “Four Years of Hell,” and prominently includes the text “Document it all.”
-- Add prominent user-facing landing page text: “Zero Tolerance for Stalking.”
-- Rewrite the hero line “AI is taking the side of women to punish men for their behavior” into a women-centered, safety-focused statement about documentation/evidence organization and legal/accountability pathways, without advocating harassment, threats, violence, or “punish men” phrasing.
+- Update `frontend/src/utils/messageGenerator.ts` templates for tones `firm`, `severe`, and `very harsh` to use stronger boundary language and clearer legal-accountability framing without threats, violence, or encouraging harassment.
+- Expand the fixed post-login splash message pool in `frontend/src/utils/postLoginSplashMessages.ts` with additional harsher accountability-focused lines while preserving the existing required exact messages verbatim.
+- Revise `frontend/src/utils/generateEvidenceSummary.ts` “urgent” and “urgent-feminine” copy to remove labeling a person as a “threat,” keeping urgency and safety emphasis with police-appropriate wording and the same deterministic formatting/structure.
 
-**User-visible outcome:** Visitors to the Home/Landing page see updated hero text centered on “Document it all,” the slogan “Zero Tolerance for Stalking,” and a safer women-centered AI support statement, with login/logout behavior and buttons unchanged.
+**User-visible outcome:** Users see more forceful, accountability-focused wording in the Message Generator (for the specified tones), a harsher post-login splash message set, and urgent evidence summaries that remain police-appropriate without inflammatory “threat” labeling.

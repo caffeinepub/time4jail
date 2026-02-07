@@ -5,9 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, Search as SearchIcon, Shield, Clock, ExternalLink } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Plus, Search as SearchIcon, Shield, Clock, ExternalLink, CheckCircle2, AlertCircle, FileText } from 'lucide-react';
 import { useGetCallerPoliceDepartments, useGetVerifiedPoliceDepartments, useSavePoliceDepartment } from '../../hooks/useQueries';
 import { openGoogleSearch } from '../../utils/googleSearch';
+import SubmitPoliceReportDialog from './SubmitPoliceReportDialog';
 
 export default function PoliceDepartmentsPage() {
   const { data: personalDepts = [], isLoading: personalLoading } = useGetCallerPoliceDepartments();
@@ -15,26 +17,55 @@ export default function PoliceDepartmentsPage() {
   const savePoliceDepartment = useSavePoliceDepartment();
 
   const [showForm, setShowForm] = useState(false);
+  const [showSubmitDialog, setShowSubmitDialog] = useState(false);
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [website, setWebsite] = useState('');
   const [searchCity, setSearchCity] = useState('');
   const [searchState, setSearchState] = useState('');
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
 
+    setSaveError(null);
+    setSaveSuccess(false);
+
     try {
       await savePoliceDepartment.mutateAsync({ name, address, phone, website });
-      setName('');
-      setAddress('');
-      setPhone('');
-      setWebsite('');
-      setShowForm(false);
-    } catch (error) {
+      
+      // Show success feedback
+      setSaveSuccess(true);
+      
+      // Reset form and close after brief delay
+      setTimeout(() => {
+        setName('');
+        setAddress('');
+        setPhone('');
+        setWebsite('');
+        setShowForm(false);
+        setSaveSuccess(false);
+      }, 1500);
+    } catch (error: any) {
       console.error('Failed to save police department:', error);
+      
+      // Parse error message for user-friendly display
+      let errorMessage = 'Failed to save police department. Please try again.';
+      
+      if (error?.message) {
+        if (error.message.includes('Unauthorized')) {
+          errorMessage = 'You must be logged in to save police departments.';
+        } else if (error.message.includes('Actor not available')) {
+          errorMessage = 'Connection error. Please refresh the page and try again.';
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
+      setSaveError(errorMessage);
     }
   };
 
@@ -61,10 +92,16 @@ export default function PoliceDepartmentsPage() {
             Find and save police department contact information
           </p>
         </div>
-        <Button onClick={() => setShowForm(!showForm)}>
-          <Plus className="w-4 h-4 mr-2" />
-          Add Department
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={() => setShowSubmitDialog(true)} size="lg">
+            <FileText className="w-4 h-4 mr-2" />
+            Submit report
+          </Button>
+          <Button onClick={() => setShowForm(!showForm)} variant="outline">
+            <Plus className="w-4 h-4 mr-2" />
+            Add Department
+          </Button>
+        </div>
       </div>
 
       <Card className="border-2">
@@ -115,6 +152,22 @@ export default function PoliceDepartmentsPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              {saveError && (
+                <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>{saveError}</AlertDescription>
+                </Alert>
+              )}
+
+              {saveSuccess && (
+                <Alert className="border-green-500/50 bg-green-500/10">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  <AlertDescription className="text-green-600">
+                    Police department saved successfully!
+                  </AlertDescription>
+                </Alert>
+              )}
+
               <div className="space-y-2">
                 <Label htmlFor="dept-name">Department Name *</Label>
                 <Input
@@ -157,17 +210,31 @@ export default function PoliceDepartmentsPage() {
               </div>
 
               <div className="flex gap-2">
-                <Button type="submit" disabled={savePoliceDepartment.isPending}>
+                <Button type="submit" disabled={savePoliceDepartment.isPending || saveSuccess}>
                   {savePoliceDepartment.isPending ? (
                     <>
                       <Clock className="w-4 h-4 mr-2 animate-spin" />
                       Saving...
                     </>
+                  ) : saveSuccess ? (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      Saved!
+                    </>
                   ) : (
                     'Save Department'
                   )}
                 </Button>
-                <Button type="button" variant="outline" onClick={() => setShowForm(false)}>
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => {
+                    setShowForm(false);
+                    setSaveError(null);
+                    setSaveSuccess(false);
+                  }}
+                  disabled={savePoliceDepartment.isPending}
+                >
                   Cancel
                 </Button>
               </div>
@@ -294,6 +361,13 @@ export default function PoliceDepartmentsPage() {
           )}
         </TabsContent>
       </Tabs>
+
+      <SubmitPoliceReportDialog
+        open={showSubmitDialog}
+        onOpenChange={setShowSubmitDialog}
+        personalDepartments={personalDepts}
+        verifiedDepartments={verifiedDepts}
+      />
     </div>
   );
 }

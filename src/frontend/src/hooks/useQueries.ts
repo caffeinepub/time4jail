@@ -13,6 +13,7 @@ import type {
   FileId
 } from '../backend';
 import { ExternalBlob } from '../backend';
+import { checkPoliceDeptSaveRegression } from '../utils/policeDeptSaveRegressionCheck';
 
 // User Profile
 export function useGetCallerUserProfile() {
@@ -225,8 +226,27 @@ export function useSavePoliceDepartment() {
       if (!actor) throw new Error('Actor not available');
       return actor.savePoliceDepartment(name, address, phone, website);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['personalPoliceDepartments'] });
+    onSuccess: async (savedDept) => {
+      // Update cache optimistically with the returned department
+      queryClient.setQueryData<PoliceDepartment[]>(
+        ['personalPoliceDepartments'],
+        (old = []) => {
+          // Dedupe by id
+          const exists = old.some(d => d.id.toString() === savedDept.id.toString());
+          return exists ? old : [...old, savedDept];
+        }
+      );
+
+      // Invalidate and refetch to ensure server truth
+      await queryClient.invalidateQueries({ queryKey: ['personalPoliceDepartments'] });
+      const refetchResult = await queryClient.refetchQueries({ 
+        queryKey: ['personalPoliceDepartments'] 
+      });
+
+      // Development-only regression check
+      if (import.meta.env.DEV && refetchResult[0]?.data) {
+        checkPoliceDeptSaveRegression(savedDept, refetchResult[0].data as PoliceDepartment[]);
+      }
     },
   });
 }
