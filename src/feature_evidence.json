@@ -1,0 +1,45 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-home-landing-page-hero-headline-and-supporting-copy-to-replace-the-current-four-years-of-hell-time-to-document-it-all-phrasing-with-copy-centered-on-document-it-all-and-add-the-slogan-zero-tolerance-for-stalking-as-prominent-user-facing-text-on-the-landing-page",
+      "featureTitle": "Update the Home/Landing page hero headline and supporting copy to replace the current “Four Years of Hell. Time to Document It All.” phrasing with copy centered on “Document it all”, and add the slogan “Zero Tolerance for Stalking” as prominent user-facing text on the landing page.",
+      "files": [
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-19"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-in-the-home-landing-page-hero-section-replace-or-rewrite-the-requested-line-ai-is-taking-the-side-of-women-to-punish-men-for-their-behavior-into-a-safety-focused-non-violent-non-harassing-statement-that-still-conveys-women-centered-support-and-accountability-e-g-emphasizing-documentation-evidence-organization-and-seeking-legal-accountability-pathways-without-advocating-punishment-or-harm",
+      "featureTitle": "In the Home/Landing page hero section, replace or rewrite the requested line “AI is taking the side of women to punish men for their behavior” into a safety-focused, non-violent, non-harassing statement that still conveys women-centered support and accountability (e.g., emphasizing documentation, evidence organization, and seeking legal/accountability pathways, without advocating punishment or harm).",
+      "files": [
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-20"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Landing page hero copy update: “Document it all” + “Zero Tolerance for Stalking”",
+  "requirements": [
+    {
+      "id": "REQ-19",
+      "summary": "Replace the HomePage hero headline/supporting copy to center “Document it all” and add the prominent slogan “Zero Tolerance for Stalking”, without changing the existing login/logout UI behavior.",
+      "acceptanceCriteria": [
+        "On the public landing page (HomePage), the hero headline no longer contains the phrase “Four Years of Hell.”",
+        "The landing page prominently displays the exact text “Document it all” (case-insensitive acceptable only if user-facing design requires, but the words must be exact).",
+        "The landing page prominently displays the exact text “Zero Tolerance for Stalking”.",
+        "The login/authentication UI and flow on the landing page remains unchanged (same buttons/actions and behavior)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Update the hero headline and supporting paragraph copy to remove “Four Years of Hell” and make “Document it all” and “Zero Tolerance for Stalking” prominent user-facing text, while keeping the existing Internet Identity login/logout buttons, labels, actions, and conditional rendering intact. Continue using the existing shadcn-ui components (Button/Card/Badge) for consistent styling; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "summary": "Rewrite the HomePage hero women-centered AI support line into a safety-focused, non-harassing statement aligned with documentation and legal/accountability pathways.",
+      "acceptanceCriteria": [
+        "The landing page includes a clear women-centered AI support statement.",
+        "The statement does not include language advocating harassment, threats, violence, or “punish men” phrasing.",
+        "The statement remains consistent with the app’s purpose (documenting incidents/evidence and supporting reporting/legal readiness)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Replace/introduce the hero-section statement so it is explicitly women-centered and safety-focused (documentation, evidence organization, reporting/legal readiness), and remove any “punish men” or similar harassing/violent language. Keep all user-facing text in English and do not alter authentication flow code/behavior. Continue using existing shadcn-ui typography/layout patterns already present on the page; verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

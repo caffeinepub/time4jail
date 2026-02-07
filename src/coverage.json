@@ -1,0 +1,48 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-07T15:59:20.561Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 2,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-19",
+        "summary": "Update the Home/Landing page hero headline and supporting copy to replace the current “Four Years of Hell. Time to Document It All.” phrasing with copy centered on “Document it all”, and add the slogan “Zero Tolerance for Stalking” as prominent user-facing text on the landing page.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/HomePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/HomePage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-20",
+        "summary": "In the Home/Landing page hero section, replace or rewrite the requested line “AI is taking the side of women to punish men for their behavior” into a safety-focused, non-violent, non-harassing statement that still conveys women-centered support and accountability (e.g., emphasizing documentation, evidence organization, and seeking legal/accountability pathways, without advocating punishment or harm).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/HomePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/HomePage.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/pages/HomePage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

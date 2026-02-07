@@ -1,0 +1,68 @@
+{
+  "kind": "build_request",
+  "title": "Update landing page hero copy and slogans (document it all / zero tolerance)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-19",
+      "text": "Update the Home/Landing page hero headline and supporting copy to replace the current “Four Years of Hell. Time to Document It All.” phrasing with copy centered on “Document it all”, and add the slogan “Zero Tolerance for Stalking” as prominent user-facing text on the landing page.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "can you change the four years of hell time to document it all to.\nZero Tolerance for Stalking"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On the public landing page (HomePage), the hero headline no longer contains the phrase “Four Years of Hell.”",
+        "The landing page prominently displays the exact text “Document it all” (case-insensitive acceptable only if user-facing design requires, but the words must be exact).",
+        "The landing page prominently displays the exact text “Zero Tolerance for Stalking”.",
+        "The login/authentication UI and flow on the landing page remains unchanged (same buttons/actions and behavior)."
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "text": "In the Home/Landing page hero section, replace or rewrite the requested line “AI is taking the side of women to punish men for their behavior” into a safety-focused, non-violent, non-harassing statement that still conveys women-centered support and accountability (e.g., emphasizing documentation, evidence organization, and seeking legal/accountability pathways, without advocating punishment or harm).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "AI is taking the side of women to punish men for their behavior"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The landing page includes a clear women-centered AI support statement.",
+        "The statement does not include language advocating harassment, threats, violence, or “punish men” phrasing.",
+        "The statement remains consistent with the app’s purpose (documenting incidents/evidence and supporting reporting/legal readiness)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Keep the existing authentication flow intact (Internet Identity login/logout behavior must not change).",
+    "Use English for all user-facing text."
+  ],
+  "nonGoals": [
+    "No backend/canister changes.",
+    "No changes to incident, evidence, stalker profile, or settings features beyond landing-page text.",
+    "No new pages or navigation changes."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

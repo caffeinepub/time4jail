@@ -1,0 +1,280 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 11,
+  "summary": "Time4jail expanded into a women’s-safety, anti-stalking incident documentation app with incident logging, evidence capture, reporting utilities (auto report numbers, summaries), messaging/SMS tools, police department lookup/saving, resources, PWA install guidance, and private-only customization.",
+  "architectural_notes": [
+    "Add support for user-specific personalization of UI copy/tone (target persona: angry woman dealing with long-term stalking).",
+    "Plan secure storage/handling for evidence uploads (photos/audio/video) and associated metadata.",
+    "Implement SMS prefill via deep link / OS share intent for one-tap “Send via SMS”.",
+    "Define approach for police department lookup (Google integration) and a model for ‘personal’ vs ‘globally verified’ saved departments.",
+    "Add PWA install guidance and ensure app is PWA-capable (manifest/service worker) if not already.",
+    "User requests a black background + bright purple text color scheme (note: overrides prior preference to avoid blue/purple themes).",
+    "Ensure user-facing copy updates remain safety-focused and non-violent/non-harassing (avoid wording like \"punish men\"), while still supporting an empowered, zero-tolerance anti-stalking tone."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-set-the-application-title-branding-text-to-jailtime-everywhere-it-is-shown-to-the-user-e-g-browser-tab-title-top-level-header-landing-title-and-any-other-prominent-app-name-labels",
+      "title": "Set the application title/branding text to \"jailtime\" everywhere it is shown to the user (e.g., browser tab title, top-level header/landing title, and any other prominent app-name labels).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-cohesive-distinct-visual-theme-color-palette-typography-spacing-and-component-styling-and-apply-it-consistently-across-the-app-ui-do-not-use-a-blue-purple-theme",
+      "title": "Create a cohesive, distinct visual theme (color palette, typography, spacing, and component styling) and apply it consistently across the app UI. Do not use a blue+purple theme.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-change-the-application-title-branding-text-to-time4jail-everywhere-it-is-shown-to-the-user-browser-tab-title-document-title-header-branding",
+      "title": "Change the application title/branding text to \"Time4jail\" everywhere it is shown to the user (browser tab title, document title, header branding).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-personalize-the-home-landing-page-user-facing-copy-and-section-headings-for-an-angry-woman-who-has-been-dealing-with-a-man-stalking-her-for-4-years-using-an-empowering-safety-focused-tone-no-harassment-threats-or-violence-while-keeping-the-existing-authentication-flow-intact",
+      "title": "Personalize the Home/Landing page user-facing copy and section headings for an angry woman who has been dealing with a man stalking her for 4 years, using an empowering, safety-focused tone (no harassment, threats, or violence), while keeping the existing authentication flow intact.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-incident-reporting-ui-a-guided-workflow-first-incident-form-that-captures-detailed-notes-incident-date-time-and-links-selects-a-stalker-profile-support-creating-editing-viewing-and-deleting-incidents-and-show-an-incident-history-log-view-with-filtering-sorting-by-date",
+      "title": "Add incident reporting UI: a guided, workflow-first incident form that captures detailed notes, incident date/time, and links/selects a stalker profile; support creating, editing, viewing, and deleting incidents and show an incident history log view with filtering/sorting by date.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-stalker-profiles-ui-a-tab-page-to-create-view-edit-and-delete-saved-stalker-profiles-include-fields-needed-to-associate-incidents-e-g-name-alias-and-freeform-identifying-notes-and-allow-selecting-a-stalker-profile-from-incident-creation-edit-flows",
+      "title": "Add stalker profiles UI: a tab/page to create, view, edit, and delete saved stalker profiles; include fields needed to associate incidents (e.g., name/alias and freeform identifying notes), and allow selecting a stalker profile from incident creation/edit flows.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-evidence-upload-evidence-record-functionality-allow-uploading-and-storing-evidence-files-photos-screenshots-audio-video-with-evidence-metadata-and-linking-evidence-records-to-an-incident-provide-a-dedicated-evidence-record-tab-page-that-lists-all-evidence-and-supports-preview-download-where-feasible",
+      "title": "Add evidence upload + evidence record functionality: allow uploading and storing evidence files (photos, screenshots, audio, video) with evidence metadata and linking evidence records to an incident; provide a dedicated “Evidence Record” tab/page that lists all evidence and supports preview/download where feasible.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-criminal-activity-report-number-auto-generation-for-incidents-reports-and-display-it-consistently-on-incident-detail-and-any-export-share-surfaces-in-the-app-ui",
+      "title": "Implement Criminal Activity Report Number auto-generation for incidents/reports and display it consistently on incident detail and any export/share surfaces in the app UI.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-message-generator-tool-with-selectable-tone-options-calm-firm-severe-very-harsh-that-produces-an-editable-message-add-a-one-tap-send-via-sms-action-that-opens-the-device-s-texting-app-with-the-generated-message-prefilled-using-an-sms-link",
+      "title": "Add a message generator tool with selectable tone options (calm, firm, severe, very harsh) that produces an editable message; add a one-tap “Send via SMS” action that opens the device’s texting app with the generated message prefilled (using an sms: link).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-summarize-all-incidents-feature-that-generates-a-structured-summary-across-all-incidents-timeline-highlights-counts-and-key-recurring-patterns-and-allows-copying-exporting-the-result-from-the-ui",
+      "title": "Add an “Summarize All Incidents” feature that generates a structured summary across all incidents (timeline highlights, counts, and key recurring patterns) and allows copying/exporting the result from the UI.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-victim-survivor-info-tab-page-that-stores-optional-personal-details-user-controlled-with-clear-privacy-language-and-the-ability-to-leave-fields-blank-allow-editing-and-saving-to-the-backend",
+      "title": "Add a Victim/Survivor Info tab/page that stores optional personal details (user-controlled) with clear privacy language and the ability to leave fields blank; allow editing and saving to the backend.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-police-department-lookup-and-saving-provide-a-search-via-google-action-opens-a-new-tab-with-a-prefilled-google-search-query-plus-manual-entry-editing-implement-saved-police-departments-as-a-personal-saved-list-per-user-and-b-a-globally-visible-verified-list-read-only-for-normal-users",
+      "title": "Add police department lookup and saving: provide a “Search via Google” action (opens a new tab with a prefilled Google search query) plus manual entry/editing; implement saved police departments as (a) personal saved list per user and (b) a globally visible verified list (read-only for normal users).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-crime-help-resources-section-with-a-clear-external-link-list-opens-in-a-new-tab-and-include-an-install-guide-page-that-provides-pwa-installation-instructions-for-ios-safari-android-chrome-and-desktop-browsers",
+      "title": "Add a Crime Help / resources section with a clear external link list (opens in a new tab) and include an Install Guide page that provides PWA installation instructions for iOS (Safari), Android (Chrome), and desktop browsers.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-authenticated-app-navigation-into-a-workflow-optimized-tab-order-that-includes-at-minimum-incidents-new-report-history-evidence-record-stalker-profiles-message-generator-police-departments-victim-survivor-info-resources-install-guide-keep-the-existing-authentication-flow-intact-and-ensure-unauthenticated-users-remain-on-the-current-landing-experience",
+      "title": "Update the authenticated app navigation into a workflow-optimized tab order that includes at minimum: Incidents (new/report + history), Evidence Record, Stalker Profiles, Message Generator, Police Departments, Victim/Survivor Info, Resources, Install Guide; keep the existing authentication flow intact and ensure unauthenticated users remain on the current landing experience.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-private-only-customization-capability-provide-per-user-settings-to-adjust-app-visuals-and-tone-language-style-including-a-bold-women-s-safety-centered-theme-option-and-a-full-red-personal-angry-feminine-theme-option-apply-the-selected-theme-consistently-across-the-ui-for-that-user",
+      "title": "Add private-only customization capability: provide per-user settings to adjust app visuals and tone/language style, including a bold women’s-safety centered theme option and a full red, personal, angry feminine theme option; apply the selected theme consistently across the UI for that user.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-global-default-visual-theme-so-the-app-renders-with-a-black-background-and-bright-purple-foreground-text-across-all-pages-authenticated-and-unauthenticated-using-the-existing-css-variable-theming-system",
+      "title": "Update the global default visual theme so the app renders with a black background and bright purple foreground text across all pages (authenticated and unauthenticated), using the existing CSS variable theming system.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-preserve-existing-non-default-theme-variants-e-g-womensafety-and-redfemininebold-so-they-continue-to-work-while-making-the-updated-black-bright-purple-scheme-the-default-styling-when-no-special-theme-is-selected",
+      "title": "Preserve existing non-default theme variants (e.g., womenSafety and redFeminineBold) so they continue to work, while making the updated black+bright-purple scheme the default styling when no special theme is selected.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-home-landing-page-hero-headline-and-supporting-copy-to-replace-the-current-four-years-of-hell-time-to-document-it-all-phrasing-with-copy-centered-on-document-it-all-and-add-the-slogan-zero-tolerance-for-stalking-as-prominent-user-facing-text-on-the-landing-page",
+      "title": "Update the Home/Landing page hero headline and supporting copy to replace the current “Four Years of Hell. Time to Document It All.” phrasing with copy centered on “Document it all”, and add the slogan “Zero Tolerance for Stalking” as prominent user-facing text on the landing page.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-home-landing-page-hero-section-replace-or-rewrite-the-requested-line-ai-is-taking-the-side-of-women-to-punish-men-for-their-behavior-into-a-safety-focused-non-violent-non-harassing-statement-that-still-conveys-women-centered-support-and-accountability-e-g-emphasizing-documentation-evidence-organization-and-seeking-legal-accountability-pathways-without-advocating-punishment-or-harm",
+      "title": "In the Home/Landing page hero section, replace or rewrite the requested line “AI is taking the side of women to punish men for their behavior” into a safety-focused, non-violent, non-harassing statement that still conveys women-centered support and accountability (e.g., emphasizing documentation, evidence organization, and seeking legal/accountability pathways, without advocating punishment or harm).",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-2",
+      "summary": "Change the application title/branding text to \"Time4jail\" everywhere it is shown (browser tab title, headers, landing title, etc.).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Personalize the app’s tone/content for an angry woman who has been dealing with a man stalking her for 4 years (copy/UX tailored to this context).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add full incident reporting flow (detailed notes, timestamps, stalker info) with incident history log and optimized tab/workflow order.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add evidence uploads/records (photos, screenshots, audio, video) including an Evidence Record tab.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add stalker profiles (saved, editable) to link to incidents.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Auto-generate a Criminal Activity Report Number for incidents/reports.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add a message generator with selectable tone (calm, firm, severe, very harsh) and one-tap “Send via SMS” to prefill the texting app.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add incident summarizer feature (e.g., “Summarize All Incidents”).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add optional victim/survivor info tab for personal details.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Add police department lookup (via Google) plus manual entry/editing; allow saving departments (personal and globally verified).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add Crime Help/resources link section.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Add PWA Install Guide (installation instructions).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Update visual theme/branding: bold women’s-safety centered, full red ‘angry feminine’ private-version theme.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Support private-only customization capability (visuals, language, tone).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Implement backend data models and canister APIs to support authenticated, per-user storage for: incidents (with timestamps and detailed notes), stalker profiles (saved/editable), evidence records (metadata + uploaded file bytes), victim/survivor optional info, police departments (personal saved list), and user customization settings (visuals/language/tone).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Update app color scheme to black background with bright purple text (user-requested theme change).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Update landing/homepage hero copy: change phrase \"four years of hell time to document it all\" to \"document it all\" and add headings/slogans like \"Zero Tolerance for Stalking\"; ensure tone stays safety-focused and avoids language advocating punishment/harassment.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Time4jail",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

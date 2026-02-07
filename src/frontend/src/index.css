@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.375rem;
+        
+        /* Black background with bright purple text - default theme */
+        --background: 0 0 0;
+        --foreground: 0.70 0.28 290;
+        
+        --card: 0.08 0.02 290;
+        --card-foreground: 0.70 0.28 290;
+        
+        --popover: 0.08 0.02 290;
+        --popover-foreground: 0.70 0.28 290;
+        
+        /* Primary: Bright purple */
+        --primary: 0.65 0.30 285;
+        --primary-foreground: 0 0 0;
+        
+        /* Secondary: Dark purple-gray */
+        --secondary: 0.15 0.08 290;
+        --secondary-foreground: 0.70 0.28 290;
+        
+        --muted: 0.12 0.05 290;
+        --muted-foreground: 0.55 0.20 290;
+        
+        --accent: 0.18 0.10 285;
+        --accent-foreground: 0.75 0.30 285;
+        
+        /* Destructive: Bright magenta-red */
+        --destructive: 0.55 0.28 350;
+        --destructive-foreground: 0 0 0;
+        
+        --border: 0.20 0.12 290;
+        --input: 0.20 0.12 290;
+        --ring: 0.65 0.30 285;
+        
+        --chart-1: 0.65 0.30 285;
+        --chart-2: 0.60 0.25 270;
+        --chart-3: 0.70 0.28 300;
+        --chart-4: 0.55 0.22 310;
+        --chart-5: 0.75 0.32 280;
+        
+        --sidebar: 0.05 0.02 290;
+        --sidebar-foreground: 0.70 0.28 290;
+        --sidebar-primary: 0.65 0.30 285;
+        --sidebar-primary-foreground: 0 0 0;
+        --sidebar-accent: 0.15 0.08 290;
+        --sidebar-accent-foreground: 0.70 0.28 290;
+        --sidebar-border: 0.20 0.12 290;
+        --sidebar-ring: 0.65 0.30 285;
+    }
+
+    .dark {
+        /* Dark mode: Pure black with bright purple - same as light for this theme */
+        --background: 0 0 0;
+        --foreground: 0.70 0.28 290;
+        
+        --card: 0.08 0.02 290;
+        --card-foreground: 0.70 0.28 290;
+        
+        --popover: 0.08 0.02 290;
+        --popover-foreground: 0.70 0.28 290;
+        
+        /* Primary: Bright purple */
+        --primary: 0.65 0.30 285;
+        --primary-foreground: 0 0 0;
+        
+        --secondary: 0.15 0.08 290;
+        --secondary-foreground: 0.70 0.28 290;
+        
+        --muted: 0.12 0.05 290;
+        --muted-foreground: 0.55 0.20 290;
+        
+        --accent: 0.18 0.10 285;
+        --accent-foreground: 0.75 0.30 285;
+        
+        --destructive: 0.55 0.28 350;
+        --destructive-foreground: 0 0 0;
+        
+        --border: 0.20 0.12 290;
+        --input: 0.20 0.12 290;
+        --ring: 0.65 0.30 285;
+        
+        --chart-1: 0.65 0.30 285;
+        --chart-2: 0.60 0.25 270;
+        --chart-3: 0.70 0.28 300;
+        --chart-4: 0.55 0.22 310;
+        --chart-5: 0.75 0.32 280;
+        
+        --sidebar: 0.05 0.02 290;
+        --sidebar-foreground: 0.70 0.28 290;
+        --sidebar-primary: 0.65 0.30 285;
+        --sidebar-primary-foreground: 0 0 0;
+        --sidebar-accent: 0.15 0.08 290;
+        --sidebar-accent-foreground: 0.70 0.28 290;
+        --sidebar-border: 0.20 0.12 290;
+        --sidebar-ring: 0.65 0.30 285;
+    }
+
+    /* Women's Safety Theme */
+    [data-theme="womenSafety"] {
+        --background: 0.97 0.01 320;
+        --foreground: 0.15 0.02 320;
+        
+        --card: 0.99 0.005 320;
+        --card-foreground: 0.15 0.02 320;
+        
+        --primary: 0.55 0.25 340;
+        --primary-foreground: 0.99 0.005 320;
+        
+        --secondary: 0.85 0.08 280;
+        --secondary-foreground: 0.20 0.02 320;
+        
+        --accent: 0.75 0.15 300;
+        --accent-foreground: 0.15 0.02 320;
+        
+        --destructive: 0.50 0.28 10;
+        --destructive-foreground: 0.99 0.005 320;
+        
+        --border: 0.85 0.08 320;
+        --ring: 0.55 0.25 340;
+    }
+
+    [data-theme="womenSafety"].dark {
+        --background: 0.12 0.02 320;
+        --foreground: 0.95 0.01 320;
+        
+        --card: 0.18 0.025 320;
+        --card-foreground: 0.95 0.01 320;
+        
+        --primary: 0.65 0.28 340;
+        --primary-foreground: 0.12 0.02 320;
+        
+        --border: 0.25 0.025 320;
+        --ring: 0.65 0.28 340;
+    }
+
+    /* Red Feminine Bold Theme */
+    [data-theme="redFeminineBold"] {
+        --background: 0.96 0.015 10;
+        --foreground: 0.10 0.03 10;
+        
+        --card: 0.98 0.01 10;
+        --card-foreground: 0.10 0.03 10;
+        
+        --primary: 0.50 0.30 15;
+        --primary-foreground: 0.98 0.01 10;
+        
+        --secondary: 0.80 0.12 350;
+        --secondary-foreground: 0.15 0.03 10;
+        
+        --accent: 0.65 0.22 5;
+        --accent-foreground: 0.98 0.01 10;
+        
+        --destructive: 0.45 0.32 0;
+        --destructive-foreground: 0.98 0.01 10;
+        
+        --border: 0.85 0.10 10;
+        --ring: 0.50 0.30 15;
+    }
+
+    [data-theme="redFeminineBold"].dark {
+        --background: 0.10 0.03 10;
+        --foreground: 0.95 0.015 10;
+        
+        --card: 0.15 0.035 10;
+        --card-foreground: 0.95 0.015 10;
+        
+        --primary: 0.60 0.32 15;
+        --primary-foreground: 0.10 0.03 10;
+        
+        --border: 0.22 0.035 10;
+        --ring: 0.60 0.32 15;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-black tracking-tight;
+    }
+}

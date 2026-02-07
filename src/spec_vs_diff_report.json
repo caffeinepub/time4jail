@@ -1,0 +1,38 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-07T15:59:20.557Z",
+  "summary": "HomePage hero copy was rewritten to feature “Zero Tolerance for Stalking.” and “Document It All.” plus a women-centered, legal/accountability-focused AI support paragraph. Two additional non-product files (frontend-file-summaries.txt, project_state.json) were also updated. There is a likely acceptance-criteria risk around the requirement for the exact slogan text due to added punctuation/capitalization.",
+  "missing_requirements": [
+    {
+      "id": "REQ-19",
+      "requirement": "The landing page prominently displays the exact text “Document it all” and the exact text “Zero Tolerance for Stalking”.",
+      "reason": "The hero headline includes “Zero Tolerance for Stalking.” and “Document It All.” with trailing periods and different capitalization; the AC calls for the exact text strings without extra punctuation.",
+      "evidence": [
+        "frontend/src/pages/HomePage.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Updated project metadata/state documentation (project_state.json) describing expanded app features.",
+      "reason": "BuildRequest only asks to update landing page hero copy/slogans and keep auth flow intact; it does not request changing repository state documentation.",
+      "evidence": [
+        "project_state.json"
+      ]
+    },
+    {
+      "description": "Updated/generated frontend file summary documentation (frontend-file-summaries.txt).",
+      "reason": "BuildRequest does not request updating documentation/summary artifacts—only landing page copy changes.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/pages/HomePage.tsx",
+    "project_state.json"
+  ]
+}
