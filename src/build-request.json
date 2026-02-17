@@ -1,75 +1,65 @@
 {
   "kind": "build_request",
-  "title": "Make user-facing tone harsher toward the stalker (legal-accountability, non-violent)",
+  "title": "Make post-login motivation text and mugshot visuals more intense (accountability-focused)",
+  "projectName": "Time4jail",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-50",
-      "text": "Update the Message Generator templates to use a harsher, women-centered accountability tone toward the stalker while remaining safety-focused and non-violent/non-harassing, and without making actionable threats or encouraging harm.",
+      "id": "REQ-1",
+      "text": "Revise the post-login splash message pool to be \"extra extra spicy\" in tone while remaining non-profane, non-defamatory, and focused on safety, boundaries, documentation, and legal accountability (update the fixed message list used by the post-login splash).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "can you make the tone harsh towards the stalker?"
+          "question for you - can we make the motivation text along with the mug shots to be extra extra spicy towards the stalker?"
         ]
       },
       "acceptanceCriteria": [
-        "In frontend/src/utils/messageGenerator.ts, the generated messages for tones 'firm', 'severe', and 'very harsh' use noticeably harsher wording toward the stalker (e.g., clearer legal-accountability framing, stronger boundary language) while remaining non-violent and not encouraging harassment or harm.",
-        "No template includes violent language, calls for vigilante action, or instructions to harass the stalker.",
-        "MessageGeneratorPage continues to render and update the generated message for each tone without runtime errors."
+        "frontend/src/utils/postLoginSplashMessages.ts is updated with a refreshed set of messages that feel noticeably more intense/assertive than the current list but avoid slurs, profanity, doxxing, or threats of illegal violence",
+        "Messages remain short splash-friendly lines (generally 1–2 sentences) and are written in English",
+        "The post-login splash continues to display a randomly selected message on each splash view"
       ]
     },
     {
-      "id": "REQ-51",
-      "text": "Adjust the fixed post-login splash message pool to include additional harsher, accountability-focused motivational lines (still non-violent and non-harassing) while preserving the required exact existing messages already in the list.",
+      "id": "REQ-2",
+      "text": "Replace the single static fallback image in the post-login splash (used when no motivational video is set) with a small set of generated, generic \"mugshot-style\" visuals and randomly choose one each time the splash is shown.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "can you make the tone harsh towards the stalker?"
+          "question for you - can we make the motivation text along with the mug shots to be extra extra spicy towards the stalker?"
         ]
       },
       "acceptanceCriteria": [
-        "In frontend/src/utils/postLoginSplashMessages.ts, the existing required exact messages remain present verbatim: \"Send him to jail.\", \"No meant no.\", \"He will pay for what he did.\", and \"Don't stop until he is in cuffs.\"",
-        "The message pool is expanded or revised so that overall tone is harsher toward the stalker (legal-accountability framing), but still avoids violence, harassment, or calls for harm.",
-        "Post-login splash (frontend/src/components/auth/PostLoginSplash.tsx) continues to show exactly one randomized message from the updated fixed list per splash session."
-      ]
-    },
-    {
-      "id": "REQ-52",
-      "text": "Ensure any 'urgent' evidence summary copy remains police-appropriate and can be harsh/accountability-focused without inflammatory labeling; remove or rewrite any wording that characterizes the stalker as a \"threat\" while keeping urgency and safety emphasis.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "can you make the tone harsh towards the stalker?"
-        ]
-      },
-      "acceptanceCriteria": [
-        "In frontend/src/utils/generateEvidenceSummary.ts, the 'urgent' and 'urgent-feminine' tone copy does not label a real person as a \"threat\" and does not include insults or speculation, while maintaining urgent, safety-focused accountability framing.",
-        "Generated evidence summaries remain deterministic and formatted as before (same overall section structure and headings), with only copy changes.",
-        "EvidenceSummaryDialog continues to generate summaries for all tone options without errors."
+        "Add a small set of new generated mugshot-style images as static assets under frontend/public/assets/generated and use them as the splash fallback instead of the single hard-coded /assets/5425a899ef3d6.image.jpg reference",
+        "When no motivational video is available (or video fails), PostLoginSplash shows one randomly selected mugshot-style image from the generated set",
+        "When a motivational video is available and loads successfully, PostLoginSplash behavior remains unchanged (video still displays), and the motivation message still displays as it does today"
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui) must not be edited.",
-    "Keep tone safety-focused and non-violent/non-harassing; legal-accountability framing is allowed but do not include calls for harm or harassment.",
-    "Do not introduce new backend services or external integrations; keep changes within the existing React/TypeScript frontend."
+    "Do not edit files under frontend/src/components/ui (shadcn read-only components).",
+    "Do not change Internet Identity hooks (frontend/src/hooks/useInternetIdentity.ts / .tsx) or actor initialization hooks (frontend/src/hooks/useActor.ts).",
+    "Keep all backend logic within the existing single-actor Motoko backend; no new backend services."
   ],
   "nonGoals": [
-    "Do not change the authentication flow or routing.",
-    "Do not add new data models or backend schema changes for tone customization beyond what already exists.",
-    "Do not implement AI/LLM-based text generation; keep generation deterministic using existing utilities."
+    "Do not add profanity, slurs, or targeted hate content.",
+    "Do not include identifying details about real individuals in text or images.",
+    "Do not add new backend schemas or settings fields for this change."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-1.dim_1024x1024.png)",
+      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-2.dim_1024x1024.png)",
+      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-3.dim_1024x1024.png)",
+      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-4.dim_1024x1024.png)",
+      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-5.dim_1024x1024.png)",
+      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-6.dim_1024x1024.png)"
+    ],
     "edits": []
   }
 }

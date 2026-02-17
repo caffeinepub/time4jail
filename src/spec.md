@@ -1,11 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Make user-facing generated copy harsher and more accountability-focused toward the stalker (women-centered, legal framing) while staying non-violent, non-harassing, and police-appropriate.
+**Goal:** Make the post-login splash feel more intense and accountability-focused by updating the message pool and rotating generic mugshot-style fallback visuals.
 
 **Planned changes:**
-- Update `frontend/src/utils/messageGenerator.ts` templates for tones `firm`, `severe`, and `very harsh` to use stronger boundary language and clearer legal-accountability framing without threats, violence, or encouraging harassment.
-- Expand the fixed post-login splash message pool in `frontend/src/utils/postLoginSplashMessages.ts` with additional harsher accountability-focused lines while preserving the existing required exact messages verbatim.
-- Revise `frontend/src/utils/generateEvidenceSummary.ts` “urgent” and “urgent-feminine” copy to remove labeling a person as a “threat,” keeping urgency and safety emphasis with police-appropriate wording and the same deterministic formatting/structure.
+- Refresh the fixed post-login splash message list to be more assertive/“extra spicy” while staying non-profane, non-defamatory, and focused on safety, boundaries, documentation, and legal accountability.
+- Replace the single static fallback splash image with a small set of generated generic mugshot-style images and randomly select one when no motivational video is available (or when video fails), while keeping existing video behavior unchanged when it loads.
 
-**User-visible outcome:** Users see more forceful, accountability-focused wording in the Message Generator (for the specified tones), a harsher post-login splash message set, and urgent evidence summaries that remain police-appropriate without inflammatory “threat” labeling.
+**User-visible outcome:** After logging in, users see a more intense accountability-focused splash message, and (when no video plays) a randomly selected mugshot-style fallback image instead of the current single fallback.

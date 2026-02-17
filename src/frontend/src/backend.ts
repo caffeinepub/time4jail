@@ -142,6 +142,7 @@ export interface VictimSurvivorInfo {
 }
 export interface UserSettings {
     language: string;
+    motivationalVideo?: ExternalBlob;
     toneStyle: Variant_assertiveWomen_directSafety_balanced;
     visualTheme: Variant_redFeminineBold_default_womenSafety;
 }
@@ -226,6 +227,7 @@ export interface backendInterface {
     saveStalkerProfile(name: string, description: string, notes: string): Promise<StalkerProfile>;
     saveUserSettings(settings: UserSettings): Promise<void>;
     saveVictimSurvivorInfo(info: VictimSurvivorInfo): Promise<void>;
+    setMotivationalVideo(video: ExternalBlob | null): Promise<void>;
     uploadEvidence(title: string, description: string, evidenceType: EvidenceType, file: ExternalBlob, incidentId: IncidentId): Promise<EvidenceFile>;
     verifyPoliceDepartment(deptId: bigint): Promise<void>;
 }
@@ -488,42 +490,42 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getCallerVictimSurvivorInfo();
-                return from_candid_opt_n29(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n30(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getCallerVictimSurvivorInfo();
-            return from_candid_opt_n29(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n30(this._uploadFile, this._downloadFile, result);
         }
     }
     async getEvidenceById(arg0: FileId): Promise<EvidenceFile | null> {
         if (this.processError) {
             try {
                 const result = await this.actor.getEvidenceById(arg0);
-                return from_candid_opt_n33(this._uploadFile, this._downloadFile, result);
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.getEvidenceById(arg0);
-            return from_candid_opt_n33(this._uploadFile, this._downloadFile, result);
-        }
-    }
-    async getIncidentById(arg0: IncidentId): Promise<Incident | null> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.getIncidentById(arg0);
                 return from_candid_opt_n34(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getIncidentById(arg0);
+            const result = await this.actor.getEvidenceById(arg0);
             return from_candid_opt_n34(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getIncidentById(arg0: IncidentId): Promise<Incident | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getIncidentById(arg0);
+                return from_candid_opt_n35(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getIncidentById(arg0);
+            return from_candid_opt_n35(this._uploadFile, this._downloadFile, result);
         }
     }
     async getUserIncidents(arg0: Principal): Promise<Array<Incident>> {
@@ -655,42 +657,56 @@ export class Backend implements backendInterface {
     async saveUserSettings(arg0: UserSettings): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.saveUserSettings(to_candid_UserSettings_n35(this._uploadFile, this._downloadFile, arg0));
+                const result = await this.actor.saveUserSettings(await to_candid_UserSettings_n36(this._uploadFile, this._downloadFile, arg0));
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.saveUserSettings(to_candid_UserSettings_n35(this._uploadFile, this._downloadFile, arg0));
+            const result = await this.actor.saveUserSettings(await to_candid_UserSettings_n36(this._uploadFile, this._downloadFile, arg0));
             return result;
         }
     }
     async saveVictimSurvivorInfo(arg0: VictimSurvivorInfo): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.saveVictimSurvivorInfo(to_candid_VictimSurvivorInfo_n39(this._uploadFile, this._downloadFile, arg0));
+                const result = await this.actor.saveVictimSurvivorInfo(to_candid_VictimSurvivorInfo_n41(this._uploadFile, this._downloadFile, arg0));
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.saveVictimSurvivorInfo(to_candid_VictimSurvivorInfo_n39(this._uploadFile, this._downloadFile, arg0));
+            const result = await this.actor.saveVictimSurvivorInfo(to_candid_VictimSurvivorInfo_n41(this._uploadFile, this._downloadFile, arg0));
+            return result;
+        }
+    }
+    async setMotivationalVideo(arg0: ExternalBlob | null): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setMotivationalVideo(await to_candid_opt_n43(this._uploadFile, this._downloadFile, arg0));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setMotivationalVideo(await to_candid_opt_n43(this._uploadFile, this._downloadFile, arg0));
             return result;
         }
     }
     async uploadEvidence(arg0: string, arg1: string, arg2: EvidenceType, arg3: ExternalBlob, arg4: IncidentId): Promise<EvidenceFile> {
         if (this.processError) {
             try {
-                const result = await this.actor.uploadEvidence(arg0, arg1, to_candid_EvidenceType_n41(this._uploadFile, this._downloadFile, arg2), await to_candid_ExternalBlob_n43(this._uploadFile, this._downloadFile, arg3), arg4);
+                const result = await this.actor.uploadEvidence(arg0, arg1, to_candid_EvidenceType_n44(this._uploadFile, this._downloadFile, arg2), await to_candid_ExternalBlob_n38(this._uploadFile, this._downloadFile, arg3), arg4);
                 return from_candid_EvidenceFile_n11(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.uploadEvidence(arg0, arg1, to_candid_EvidenceType_n41(this._uploadFile, this._downloadFile, arg2), await to_candid_ExternalBlob_n43(this._uploadFile, this._downloadFile, arg3), arg4);
+            const result = await this.actor.uploadEvidence(arg0, arg1, to_candid_EvidenceType_n44(this._uploadFile, this._downloadFile, arg2), await to_candid_ExternalBlob_n38(this._uploadFile, this._downloadFile, arg3), arg4);
             return from_candid_EvidenceFile_n11(this._uploadFile, this._downloadFile, result);
         }
     }
@@ -727,11 +743,11 @@ function from_candid_Incident_n17(_uploadFile: (file: ExternalBlob) => Promise<U
 function from_candid_UserRole_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
     return from_candid_variant_n23(_uploadFile, _downloadFile, value);
 }
-function from_candid_UserSettings_n25(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserSettings): UserSettings {
-    return from_candid_record_n26(_uploadFile, _downloadFile, value);
+async function from_candid_UserSettings_n25(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserSettings): Promise<UserSettings> {
+    return await from_candid_record_n26(_uploadFile, _downloadFile, value);
 }
-function from_candid_VictimSurvivorInfo_n30(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _VictimSurvivorInfo): VictimSurvivorInfo {
-    return from_candid_record_n31(_uploadFile, _downloadFile, value);
+function from_candid_VictimSurvivorInfo_n31(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _VictimSurvivorInfo): VictimSurvivorInfo {
+    return from_candid_record_n32(_uploadFile, _downloadFile, value);
 }
 function from_candid__CaffeineStorageRefillResult_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: __CaffeineStorageRefillResult): _CaffeineStorageRefillResult {
     return from_candid_record_n5(_uploadFile, _downloadFile, value);
@@ -739,19 +755,22 @@ function from_candid__CaffeineStorageRefillResult_n4(_uploadFile: (file: Externa
 function from_candid_opt_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n24(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserSettings]): UserSettings | null {
-    return value.length === 0 ? null : from_candid_UserSettings_n25(_uploadFile, _downloadFile, value[0]);
+async function from_candid_opt_n24(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserSettings]): Promise<UserSettings | null> {
+    return value.length === 0 ? null : await from_candid_UserSettings_n25(_uploadFile, _downloadFile, value[0]);
 }
-function from_candid_opt_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_VictimSurvivorInfo]): VictimSurvivorInfo | null {
-    return value.length === 0 ? null : from_candid_VictimSurvivorInfo_n30(_uploadFile, _downloadFile, value[0]);
+async function from_candid_opt_n27(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_ExternalBlob]): Promise<ExternalBlob | null> {
+    return value.length === 0 ? null : await from_candid_ExternalBlob_n13(_uploadFile, _downloadFile, value[0]);
 }
-function from_candid_opt_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [string]): string | null {
+function from_candid_opt_n30(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_VictimSurvivorInfo]): VictimSurvivorInfo | null {
+    return value.length === 0 ? null : from_candid_VictimSurvivorInfo_n31(_uploadFile, _downloadFile, value[0]);
+}
+function from_candid_opt_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [string]): string | null {
     return value.length === 0 ? null : value[0];
 }
-async function from_candid_opt_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_EvidenceFile]): Promise<EvidenceFile | null> {
+async function from_candid_opt_n34(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_EvidenceFile]): Promise<EvidenceFile | null> {
     return value.length === 0 ? null : await from_candid_EvidenceFile_n11(_uploadFile, _downloadFile, value[0]);
 }
-function from_candid_opt_n34(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Incident]): Incident | null {
+function from_candid_opt_n35(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Incident]): Incident | null {
     return value.length === 0 ? null : from_candid_Incident_n17(_uploadFile, _downloadFile, value[0]);
 }
 function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
@@ -817,8 +836,9 @@ function from_candid_record_n18(_uploadFile: (file: ExternalBlob) => Promise<Uin
         evidenceIds: value.evidenceIds
     };
 }
-function from_candid_record_n26(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+async function from_candid_record_n26(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     language: string;
+    motivationalVideo: [] | [_ExternalBlob];
     toneStyle: {
         assertiveWomen: null;
     } | {
@@ -833,18 +853,20 @@ function from_candid_record_n26(_uploadFile: (file: ExternalBlob) => Promise<Uin
     } | {
         womenSafety: null;
     };
-}): {
+}): Promise<{
     language: string;
+    motivationalVideo?: ExternalBlob;
     toneStyle: Variant_assertiveWomen_directSafety_balanced;
     visualTheme: Variant_redFeminineBold_default_womenSafety;
-} {
+}> {
     return {
         language: value.language,
-        toneStyle: from_candid_variant_n27(_uploadFile, _downloadFile, value.toneStyle),
-        visualTheme: from_candid_variant_n28(_uploadFile, _downloadFile, value.visualTheme)
+        motivationalVideo: record_opt_to_undefined(await from_candid_opt_n27(_uploadFile, _downloadFile, value.motivationalVideo)),
+        toneStyle: from_candid_variant_n28(_uploadFile, _downloadFile, value.toneStyle),
+        visualTheme: from_candid_variant_n29(_uploadFile, _downloadFile, value.visualTheme)
     };
 }
-function from_candid_record_n31(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_record_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     age: [] | [bigint];
     contactInfo: [] | [string];
     additionalNotes: [] | [string];
@@ -861,11 +883,11 @@ function from_candid_record_n31(_uploadFile: (file: ExternalBlob) => Promise<Uin
 } {
     return {
         age: record_opt_to_undefined(from_candid_opt_n7(_uploadFile, _downloadFile, value.age)),
-        contactInfo: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.contactInfo)),
-        additionalNotes: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.additionalNotes)),
-        name: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.name)),
-        emergencyContact: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.emergencyContact)),
-        gender: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.gender))
+        contactInfo: record_opt_to_undefined(from_candid_opt_n33(_uploadFile, _downloadFile, value.contactInfo)),
+        additionalNotes: record_opt_to_undefined(from_candid_opt_n33(_uploadFile, _downloadFile, value.additionalNotes)),
+        name: record_opt_to_undefined(from_candid_opt_n33(_uploadFile, _downloadFile, value.name)),
+        emergencyContact: record_opt_to_undefined(from_candid_opt_n33(_uploadFile, _downloadFile, value.emergencyContact)),
+        gender: record_opt_to_undefined(from_candid_opt_n33(_uploadFile, _downloadFile, value.gender))
     };
 }
 function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
@@ -949,7 +971,7 @@ function from_candid_variant_n23(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): UserRole {
     return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
 }
-function from_candid_variant_n27(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     assertiveWomen: null;
 } | {
     directSafety: null;
@@ -958,7 +980,7 @@ function from_candid_variant_n27(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): Variant_assertiveWomen_directSafety_balanced {
     return "assertiveWomen" in value ? Variant_assertiveWomen_directSafety_balanced.assertiveWomen : "directSafety" in value ? Variant_assertiveWomen_directSafety_balanced.directSafety : "balanced" in value ? Variant_assertiveWomen_directSafety_balanced.balanced : value;
 }
-function from_candid_variant_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     redFeminineBold: null;
 } | {
     default: null;
@@ -973,26 +995,29 @@ async function from_candid_vec_n10(_uploadFile: (file: ExternalBlob) => Promise<
 function from_candid_vec_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Incident>): Array<Incident> {
     return value.map((x)=>from_candid_Incident_n17(_uploadFile, _downloadFile, x));
 }
-function to_candid_EvidenceType_n41(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: EvidenceType): _EvidenceType {
-    return to_candid_variant_n42(_uploadFile, _downloadFile, value);
+function to_candid_EvidenceType_n44(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: EvidenceType): _EvidenceType {
+    return to_candid_variant_n45(_uploadFile, _downloadFile, value);
 }
-async function to_candid_ExternalBlob_n43(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ExternalBlob): Promise<_ExternalBlob> {
+async function to_candid_ExternalBlob_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ExternalBlob): Promise<_ExternalBlob> {
     return await _uploadFile(value);
 }
 function to_candid_UserRole_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
     return to_candid_variant_n9(_uploadFile, _downloadFile, value);
 }
-function to_candid_UserSettings_n35(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserSettings): _UserSettings {
-    return to_candid_record_n36(_uploadFile, _downloadFile, value);
+async function to_candid_UserSettings_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserSettings): Promise<_UserSettings> {
+    return await to_candid_record_n37(_uploadFile, _downloadFile, value);
 }
-function to_candid_VictimSurvivorInfo_n39(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: VictimSurvivorInfo): _VictimSurvivorInfo {
-    return to_candid_record_n40(_uploadFile, _downloadFile, value);
+function to_candid_VictimSurvivorInfo_n41(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: VictimSurvivorInfo): _VictimSurvivorInfo {
+    return to_candid_record_n42(_uploadFile, _downloadFile, value);
 }
 function to_candid__CaffeineStorageRefillInformation_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation): __CaffeineStorageRefillInformation {
     return to_candid_record_n3(_uploadFile, _downloadFile, value);
 }
 function to_candid_opt_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation | null): [] | [__CaffeineStorageRefillInformation] {
     return value === null ? candid_none() : candid_some(to_candid__CaffeineStorageRefillInformation_n2(_uploadFile, _downloadFile, value));
+}
+async function to_candid_opt_n43(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ExternalBlob | null): Promise<[] | [_ExternalBlob]> {
+    return value === null ? candid_none() : candid_some(await to_candid_ExternalBlob_n38(_uploadFile, _downloadFile, value));
 }
 function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     proposed_top_up_amount?: bigint;
@@ -1003,12 +1028,14 @@ function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
         proposed_top_up_amount: value.proposed_top_up_amount ? candid_some(value.proposed_top_up_amount) : candid_none()
     };
 }
-function to_candid_record_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+async function to_candid_record_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     language: string;
+    motivationalVideo?: ExternalBlob;
     toneStyle: Variant_assertiveWomen_directSafety_balanced;
     visualTheme: Variant_redFeminineBold_default_womenSafety;
-}): {
+}): Promise<{
     language: string;
+    motivationalVideo: [] | [_ExternalBlob];
     toneStyle: {
         assertiveWomen: null;
     } | {
@@ -1023,14 +1050,15 @@ function to_candid_record_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8
     } | {
         womenSafety: null;
     };
-} {
+}> {
     return {
         language: value.language,
-        toneStyle: to_candid_variant_n37(_uploadFile, _downloadFile, value.toneStyle),
-        visualTheme: to_candid_variant_n38(_uploadFile, _downloadFile, value.visualTheme)
+        motivationalVideo: value.motivationalVideo ? candid_some(await to_candid_ExternalBlob_n38(_uploadFile, _downloadFile, value.motivationalVideo)) : candid_none(),
+        toneStyle: to_candid_variant_n39(_uploadFile, _downloadFile, value.toneStyle),
+        visualTheme: to_candid_variant_n40(_uploadFile, _downloadFile, value.visualTheme)
     };
 }
-function to_candid_record_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function to_candid_record_n42(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     age?: bigint;
     contactInfo?: string;
     additionalNotes?: string;
@@ -1054,7 +1082,7 @@ function to_candid_record_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8
         gender: value.gender ? candid_some(value.gender) : candid_none()
     };
 }
-function to_candid_variant_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Variant_assertiveWomen_directSafety_balanced): {
+function to_candid_variant_n39(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Variant_assertiveWomen_directSafety_balanced): {
     assertiveWomen: null;
 } | {
     directSafety: null;
@@ -1069,7 +1097,7 @@ function to_candid_variant_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint
         balanced: null
     } : value;
 }
-function to_candid_variant_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Variant_redFeminineBold_default_womenSafety): {
+function to_candid_variant_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Variant_redFeminineBold_default_womenSafety): {
     redFeminineBold: null;
 } | {
     default: null;
@@ -1084,7 +1112,7 @@ function to_candid_variant_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint
         womenSafety: null
     } : value;
 }
-function to_candid_variant_n42(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function to_candid_variant_n45(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     __kind__: "audio";
     audio: null;
 } | {

@@ -79,6 +79,7 @@ export const StalkerProfile = IDL.Record({
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const UserSettings = IDL.Record({
   'language' : IDL.Text,
+  'motivationalVideo' : IDL.Opt(ExternalBlob),
   'toneStyle' : IDL.Variant({
     'assertiveWomen' : IDL.Null,
     'directSafety' : IDL.Null,
@@ -192,6 +193,7 @@ export const idlService = IDL.Service({
     ),
   'saveUserSettings' : IDL.Func([UserSettings], [], []),
   'saveVictimSurvivorInfo' : IDL.Func([VictimSurvivorInfo], [], []),
+  'setMotivationalVideo' : IDL.Func([IDL.Opt(ExternalBlob)], [], []),
   'uploadEvidence' : IDL.Func(
       [IDL.Text, IDL.Text, EvidenceType, ExternalBlob, IncidentId],
       [EvidenceFile],
@@ -274,6 +276,7 @@ export const idlFactory = ({ IDL }) => {
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const UserSettings = IDL.Record({
     'language' : IDL.Text,
+    'motivationalVideo' : IDL.Opt(ExternalBlob),
     'toneStyle' : IDL.Variant({
       'assertiveWomen' : IDL.Null,
       'directSafety' : IDL.Null,
@@ -387,6 +390,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     'saveUserSettings' : IDL.Func([UserSettings], [], []),
     'saveVictimSurvivorInfo' : IDL.Func([VictimSurvivorInfo], [], []),
+    'setMotivationalVideo' : IDL.Func([IDL.Opt(ExternalBlob)], [], []),
     'uploadEvidence' : IDL.Func(
         [IDL.Text, IDL.Text, EvidenceType, ExternalBlob, IncidentId],
         [EvidenceFile],

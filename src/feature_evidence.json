@@ -2,28 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-message-generator-templates-to-use-a-harsher-women-centered-accountability-tone-toward-the-stalker-while-remaining-safety-focused-and-non-violent-non-harassing-and-without-making-actionable-threats-or-encouraging-harm",
-      "featureTitle": "Update the Message Generator templates to use a harsher, women-centered accountability tone toward the stalker while remaining safety-focused and non-violent/non-harassing, and without making actionable threats or encouraging harm.",
-      "files": [
-        "frontend/src/utils/messageGenerator.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "blob-storage@4.0.0"
-      ],
-      "testIds": [
-        "REQ-50"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-adjust-the-fixed-post-login-splash-message-pool-to-include-additional-harsher-accountability-focused-motivational-lines-still-non-violent-and-non-harassing-while-preserving-the-required-exact-existing-messages-already-in-the-list",
-      "featureTitle": "Adjust the fixed post-login splash message pool to include additional harsher, accountability-focused motivational lines (still non-violent and non-harassing) while preserving the required exact existing messages already in the list.",
+      "featureId": "feature-revise-the-post-login-splash-message-pool-to-be-extra-extra-spicy-in-tone-while-remaining-non-profane-non-defamatory-and-focused-on-safety-boundaries-documentation-and-legal-accountability-update-the-fixed-message-list-used-by-the-post-login-splash",
+      "featureTitle": "Revise the post-login splash message pool to be \"extra extra spicy\" in tone while remaining non-profane, non-defamatory, and focused on safety, boundaries, documentation, and legal accountability (update the fixed message list used by the post-login splash).",
       "files": [
         "frontend/src/utils/postLoginSplashMessages.ts"
       ],
@@ -37,15 +17,16 @@
         "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-51"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-ensure-any-urgent-evidence-summary-copy-remains-police-appropriate-and-can-be-harsh-accountability-focused-without-inflammatory-labeling-remove-or-rewrite-any-wording-that-characterizes-the-stalker-as-a-threat-while-keeping-urgency-and-safety-emphasis",
-      "featureTitle": "Ensure any 'urgent' evidence summary copy remains police-appropriate and can be harsh/accountability-focused without inflammatory labeling; remove or rewrite any wording that characterizes the stalker as a \"threat\" while keeping urgency and safety emphasis.",
+      "featureId": "feature-replace-the-single-static-fallback-image-in-the-post-login-splash-used-when-no-motivational-video-is-set-with-a-small-set-of-generated-generic-mugshot-style-visuals-and-randomly-choose-one-each-time-the-splash-is-shown",
+      "featureTitle": "Replace the single static fallback image in the post-login splash (used when no motivational video is set) with a small set of generated, generic \"mugshot-style\" visuals and randomly choose one each time the splash is shown.",
       "files": [
-        "frontend/src/utils/generateEvidenceSummary.ts"
+        "frontend/src/components/auth/PostLoginSplash.tsx",
+        "frontend/src/utils/postLoginSplashImages.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -57,7 +38,7 @@
         "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-52"
+        "REQ-2"
       ],
       "confidence": "high"
     }

@@ -9,6 +9,8 @@ import MixinStorage "blob-storage/Mixin";
 import Storage "blob-storage/Storage";
 import AccessControl "authorization/access-control";
 
+
+
 actor {
   type UserId = Principal;
   type Timestamp = Time.Time;
@@ -73,7 +75,7 @@ actor {
     addedBy : UserId;
   };
 
-  type UserSettings = {
+  public type UserSettings = {
     visualTheme : {
       #default;
       #womenSafety;
@@ -85,6 +87,7 @@ actor {
       #assertiveWomen;
       #directSafety;
     };
+    motivationalVideo : ?Storage.ExternalBlob;
   };
 
   public type UserProfile = {
@@ -163,7 +166,6 @@ actor {
     switch (incidents.get(incidentId)) {
       case (null) { Runtime.trap("Incident not found") };
       case (?incident) {
-        // Verify ownership: only the incident author can add evidence
         if (incident.author != caller and not AccessControl.isAdmin(accessControlState, caller)) {
           Runtime.trap("Unauthorized: Can only upload evidence to your own incidents");
         };
@@ -276,6 +278,33 @@ actor {
       Runtime.trap("Unauthorized: Only authenticated users can save settings");
     };
     userSettings.add(caller, settings);
+  };
+
+  // Newly added function for setting just the motivational video.
+  public shared ({ caller }) func setMotivationalVideo(video : ?Storage.ExternalBlob) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only authenticated users can update motivational videos");
+    };
+
+    // Try to find or create settings for this user.
+    let currentSettings = switch (userSettings.get(caller)) {
+      case (null) {
+        {
+          visualTheme = #default;
+          language = "en";
+          toneStyle = #balanced;
+          motivationalVideo = null;
+        };
+      };
+      case (?settings) { settings };
+    };
+
+    // Update only the motivational video.
+    let updatedSettings = {
+      currentSettings with
+      motivationalVideo = video;
+    };
+    userSettings.add(caller, updatedSettings);
   };
 
   // Query functions with proper authorization

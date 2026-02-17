@@ -17,12 +17,11 @@ const queryClient = new QueryClient({
   },
 });
 
-const POST_LOGIN_SPLASH_KEY = 'time4jail_post_login_splash_shown';
-
 function AppContent() {
   const { identity } = useInternetIdentity();
   const isAuthenticated = !!identity && !identity.getPrincipal().isAnonymous();
   const [showPostLoginSplash, setShowPostLoginSplash] = useState(false);
+  const [lastPrincipal, setLastPrincipal] = useState<string | null>(null);
 
   useEffect(() => {
     document.title = 'Time4jail';
@@ -35,18 +34,23 @@ function AppContent() {
     }
   }, [isAuthenticated]);
 
-  // Check if we should show the post-login splash
+  // Show splash on login (keyed by principal to allow re-showing after logout/login)
   useEffect(() => {
-    if (isAuthenticated) {
-      const splashShown = sessionStorage.getItem(POST_LOGIN_SPLASH_KEY);
-      if (!splashShown) {
+    if (isAuthenticated && identity) {
+      const currentPrincipal = identity.getPrincipal().toString();
+      
+      // If this is a new login (different principal or first login this session)
+      if (currentPrincipal !== lastPrincipal) {
         setShowPostLoginSplash(true);
+        setLastPrincipal(currentPrincipal);
       }
+    } else {
+      // Clear on logout
+      setLastPrincipal(null);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, identity, lastPrincipal]);
 
   const handleDismissSplash = () => {
-    sessionStorage.setItem(POST_LOGIN_SPLASH_KEY, 'true');
     setShowPostLoginSplash(false);
   };
 

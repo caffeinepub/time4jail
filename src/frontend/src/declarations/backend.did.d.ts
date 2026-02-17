@@ -64,6 +64,7 @@ export type UserRole = { 'admin' : null } |
   { 'guest' : null };
 export interface UserSettings {
   'language' : string,
+  'motivationalVideo' : [] | [ExternalBlob],
   'toneStyle' : { 'assertiveWomen' : null } |
     { 'directSafety' : null } |
     { 'balanced' : null },
@@ -138,6 +139,7 @@ export interface _SERVICE {
   'saveStalkerProfile' : ActorMethod<[string, string, string], StalkerProfile>,
   'saveUserSettings' : ActorMethod<[UserSettings], undefined>,
   'saveVictimSurvivorInfo' : ActorMethod<[VictimSurvivorInfo], undefined>,
+  'setMotivationalVideo' : ActorMethod<[[] | [ExternalBlob]], undefined>,
   'uploadEvidence' : ActorMethod<
     [string, string, EvidenceType, ExternalBlob, IncidentId],
     EvidenceFile

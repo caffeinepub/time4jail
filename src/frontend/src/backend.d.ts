@@ -56,6 +56,7 @@ export interface VictimSurvivorInfo {
 }
 export interface UserSettings {
     language: string;
+    motivationalVideo?: ExternalBlob;
     toneStyle: Variant_assertiveWomen_directSafety_balanced;
     visualTheme: Variant_redFeminineBold_default_womenSafety;
 }
@@ -133,6 +134,7 @@ export interface backendInterface {
     saveStalkerProfile(name: string, description: string, notes: string): Promise<StalkerProfile>;
     saveUserSettings(settings: UserSettings): Promise<void>;
     saveVictimSurvivorInfo(info: VictimSurvivorInfo): Promise<void>;
+    setMotivationalVideo(video: ExternalBlob | null): Promise<void>;
     uploadEvidence(title: string, description: string, evidenceType: EvidenceType, file: ExternalBlob, incidentId: IncidentId): Promise<EvidenceFile>;
     verifyPoliceDepartment(deptId: bigint): Promise<void>;
 }

@@ -279,3 +279,19 @@ export function useSaveUserSettings() {
     },
   });
 }
+
+// Motivational Video
+export function useSetMotivationalVideo() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (video: ExternalBlob | null) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.setMotivationalVideo(video);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['userSettings'] });
+    },
+  });
+}
