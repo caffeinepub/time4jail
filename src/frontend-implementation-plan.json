@@ -1,72 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Time4jail — Intensify post-login splash messages and rotate generated mugshot fallback visuals",
+  "title": "Update post-login splash message text",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Refresh the post-login splash message pool to be more intense/assertive while staying non-profane and focused on safety, boundaries, documentation, and legal accountability.",
+      "summary": "Replace the specified post-login splash message string in the fixed splash message pool with the new provided text, without changing any other messages or behavior.",
       "acceptanceCriteria": [
-        "frontend/src/utils/postLoginSplashMessages.ts is updated with a refreshed set of messages that feel noticeably more intense/assertive than the current list but avoid slurs, profanity, doxxing, or threats of illegal violence",
-        "Messages remain short splash-friendly lines (generally 1–2 sentences) and are written in English",
-        "The post-login splash continues to display a randomly selected message on each splash view"
+        "The string \"Document. Report. Prosecute. Repeat.\" no longer appears in POST_LOGIN_SPLASH_MESSAGES.",
+        "The post-login splash screen can display the new message \"Pervert. Stalker. Loser. Typical man.\" as one of the randomized splash messages.",
+        "No other splash messages are changed."
       ],
       "file_operations": [
         {
           "path": "frontend/src/utils/postLoginSplashMessages.ts",
           "operation": "modify",
-          "description": "Replace the fixed POST_LOGIN_SPLASH_MESSAGES list with a refreshed, \"extra extra spicy\" (intense/assertive) set that remains non-profane, non-defamatory, and focused on safety planning, boundaries, documentation, and legal accountability; keep getRandomSplashMessage behavior intact to preserve random selection each splash view."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Swap the post-login splash static fallback image for a randomized set of generated generic mugshot-style images when no motivational video is available or the video fails.",
-      "acceptanceCriteria": [
-        "Add a small set of new generated mugshot-style images as static assets under frontend/public/assets/generated and use them as the splash fallback instead of the single hard-coded /assets/5425a899ef3d6.image.jpg reference",
-        "When no motivational video is available (or video fails), PostLoginSplash shows one randomly selected mugshot-style image from the generated set",
-        "When a motivational video is available and loads successfully, PostLoginSplash behavior remains unchanged (video still displays), and the motivation message still displays as it does today"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/mugshot-1.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add generated static asset: generic mugshot-style silhouette portrait, grayscale, subtle height chart background."
-        },
-        {
-          "path": "frontend/public/assets/generated/mugshot-2.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add generated static asset: generic mugshot-style silhouette portrait, grayscale, subtle height chart background."
-        },
-        {
-          "path": "frontend/public/assets/generated/mugshot-3.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add generated static asset: generic mugshot-style silhouette portrait, grayscale, subtle height chart background."
-        },
-        {
-          "path": "frontend/public/assets/generated/mugshot-4.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add generated static asset: generic mugshot-style silhouette portrait, grayscale, subtle height chart background."
-        },
-        {
-          "path": "frontend/public/assets/generated/mugshot-5.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add generated static asset: generic mugshot-style silhouette portrait, grayscale, subtle height chart background."
-        },
-        {
-          "path": "frontend/public/assets/generated/mugshot-6.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add generated static asset: generic mugshot-style silhouette portrait, grayscale, subtle height chart background."
-        },
-        {
-          "path": "frontend/src/utils/postLoginSplashImages.ts",
-          "operation": "create",
-          "description": "Create a small utility that defines the fallback mugshot image pool (referencing frontend/public/assets/generated/mugshot-1.dim_1024x1024.png through frontend/public/assets/generated/mugshot-6.dim_1024x1024.png) and exports a helper to randomly select one for each splash display."
-        },
-        {
-          "path": "frontend/src/components/auth/PostLoginSplash.tsx",
-          "operation": "modify",
-          "description": "Update fallback rendering to remove the hard-coded /assets/5425a899ef3d6.image.jpg reference and instead pick a random generated mugshot image (from the new utility) per splash mount; ensure fallback is used when no motivational video exists or when the video onError triggers; keep motivational video behavior unchanged when it loads successfully; continue showing the random message. Use the existing shadcn-ui Button component for the Continue action (already used); Verify the component's usage instructions before implementing."
+          "description": "In POST_LOGIN_SPLASH_MESSAGES, replace the exact string \"Document. Report. Prosecute. Repeat.\" with \"Pervert. Stalker. Loser. Typical man.\" and do not change any other lines/messages or the randomization function."
         }
       ]
     }

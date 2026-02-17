@@ -5,21 +5,12 @@
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-1.dim_1024x1024.png)\n- Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-2.dim_1024x1024.png)\n- Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-3.dim_1024x1024.png)\n- Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-4.dim_1024x1024.png)\n- Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-5.dim_1024x1024.png)\n- Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-6.dim_1024x1024.png)",
   "existing_features": [
     {
-      "id": "feature-revise-the-post-login-splash-message-pool-to-be-extra-extra-spicy-in-tone-while-remaining-non-profane-non-defamatory-and-focused-on-safety-boundaries-documentation-and-legal-accountability-update-the-fixed-message-list-used-by-the-post-login-splash",
-      "title": "Revise the post-login splash message pool to be \"extra extra spicy\" in tone while remaining non-profane, non-defamatory, and focused on safety, boundaries, documentation, and legal accountability (update the fixed message list used by the post-login splash).",
+      "id": "feature-replace-the-specific-post-login-splash-message-string-document-report-prosecute-repeat-with-pervert-stalker-loser-typical-man-in-the-fixed-splash-message-pool-used-by-the-post-login-splash-screen",
+      "title": "Replace the specific post-login splash message string \"Document. Report. Prosecute. Repeat.\" with \"Pervert. Stalker. Loser. Typical man.\" in the fixed splash message pool used by the post-login splash screen.",
       "reqIds": [
         "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-the-single-static-fallback-image-in-the-post-login-splash-used-when-no-motivational-video-is-set-with-a-small-set-of-generated-generic-mugshot-style-visuals-and-randomly-choose-one-each-time-the-splash-is-shown",
-      "title": "Replace the single static fallback image in the post-login splash (used when no motivational video is set) with a small set of generated, generic \"mugshot-style\" visuals and randomly choose one each time the splash is shown.",
-      "reqIds": [
-        "REQ-2"
       ],
       "version": 1
     }
@@ -27,12 +18,11 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Revise motivation text and accompanying mug shot content to be \"extra extra spicy\" toward the stalker (adjust tone/content)",
+      "summary": "Update a specific line of text to: \"Pervert. Stalker. Loser. Typical man.\"",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
   "projectName": "Time4jail",
   "clarification_mode": "instant",
   "clarification_rounds": 0

@@ -1,70 +1,20 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-17T00:21:02.776Z",
-  "summary": "REQ-2 is partially implemented (random fallback mugshot image selection wired into PostLoginSplash), but the required generated image assets are not evidenced as added under frontend/public/assets/generated. REQ-1 updates the message pool, but the resulting messages do not meet the specified safety/non-defamatory/non-threatening tone constraints. The diff summary also indicates multiple unrelated UI/theme/feature changes not requested in the BuildRequest.",
-  "missing_requirements": [
-    {
-      "id": "REQ-1",
-      "requirement": "Revise the post-login splash message pool to be intense but non-profane, non-defamatory, and focused on safety, boundaries, documentation, and legal accountability.",
-      "reason": "While the message list was changed, several messages appear to include defamatory assertions and/or threatening language (e.g., \"Send him to jail.\", \"Don't stop until he is in cuffs.\", \"The cage is waiting for him.\"), which conflicts with the requirement to avoid defamation and threats of illegal violence and to keep the focus on safety/boundaries/documentation/legal accountability in a non-defamatory way.",
-      "evidence": [
-        "frontend/src/utils/postLoginSplashMessages.ts"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "requirement": "Add a small set of new generated mugshot-style images as static assets under frontend/public/assets/generated and use them as the splash fallback instead of the single hard-coded image reference.",
-      "reason": "The code now references six mugshot image paths under /assets/generated, but the diff summary does not show the actual image files being added under frontend/public/assets/generated.",
-      "evidence": [
-        "frontend/src/utils/postLoginSplashImages.ts",
-        "frontend/src/components/auth/PostLoginSplash.tsx"
-      ]
-    }
-  ],
+  "generatedAt": "2026-02-17T00:47:09.958Z",
+  "summary": "REQ-1 appears implemented by including the new splash message text and removing the old string from the POST_LOGIN_SPLASH_MESSAGES pool. The diff also includes an unrelated change to project_state.json that was not requested.",
+  "missing_requirements": [],
   "hallucinated_features": [
     {
-      "description": "Changed app/page title to \"Time4jail\".",
-      "reason": "Not requested by REQ-1 or REQ-2; BuildRequest only concerns post-login splash messages and fallback visuals.",
+      "description": "Updated project tracking metadata (project_state.json) by adding/altering new_feature_requests entries (AR-1, AR-2) unrelated to the app’s splash message behavior.",
+      "reason": "The BuildRequest only asked to replace a specific splash message string in the fixed post-login splash message pool, and explicitly constrained changes to that single specified line. No requirement mentioned changing project_state.json or adding tracking entries.",
       "evidence": [
-        "frontend-file-summaries.txt (frontend/index.html)"
-      ]
-    },
-    {
-      "description": "Home page CTA text/behavior updates (e.g., \"Report him!\" / \"Go to Incidents\") and additional dev-mode logging/checks.",
-      "reason": "Not requested; outside the post-login splash scope.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/pages/HomePage.tsx)"
-      ]
-    },
-    {
-      "description": "Global theme/style changes (three theme variants, OKLCH tokens) and Tailwind config updates.",
-      "reason": "Not requested; BuildRequest did not ask for theme or styling system changes.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/index.css)",
-        "frontend-file-summaries.txt (frontend/tailwind.config.js)"
-      ]
-    },
-    {
-      "description": "Added/changed React Query hooks including a new motivational video mutation (useSetMotivationalVideo).",
-      "reason": "Not requested; REQ-2 only asked to change the fallback image behavior when no motivational video exists/fails, not to add upload/clear mutations.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/hooks/useQueries.ts)"
-      ]
-    },
-    {
-      "description": "Multiple workflow pages/features described (incidents, evidence management, summaries, message generator tone options, police department directory, etc.).",
-      "reason": "Not requested by this BuildRequest; appears to be unrelated feature expansion.",
-      "evidence": [
-        "frontend-file-summaries.txt (multiple files listed, truncated)"
+        "project_state.json"
       ]
     }
   ],
   "confidence": 0.74,
   "changed_files": [
-    "frontend-file-summaries.txt",
-    "frontend/src/components/auth/PostLoginSplash.tsx",
-    "frontend/src/utils/postLoginSplashImages.ts",
     "frontend/src/utils/postLoginSplashMessages.ts",
     "project_state.json"
   ]

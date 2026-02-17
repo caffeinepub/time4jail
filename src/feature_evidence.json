@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-revise-the-post-login-splash-message-pool-to-be-extra-extra-spicy-in-tone-while-remaining-non-profane-non-defamatory-and-focused-on-safety-boundaries-documentation-and-legal-accountability-update-the-fixed-message-list-used-by-the-post-login-splash",
-      "featureTitle": "Revise the post-login splash message pool to be \"extra extra spicy\" in tone while remaining non-profane, non-defamatory, and focused on safety, boundaries, documentation, and legal accountability (update the fixed message list used by the post-login splash).",
+      "featureId": "feature-replace-the-specific-post-login-splash-message-string-document-report-prosecute-repeat-with-pervert-stalker-loser-typical-man-in-the-fixed-splash-message-pool-used-by-the-post-login-splash-screen",
+      "featureTitle": "Replace the specific post-login splash message string \"Document. Report. Prosecute. Repeat.\" with \"Pervert. Stalker. Loser. Typical man.\" in the fixed splash message pool used by the post-login splash screen.",
       "files": [
         "frontend/src/utils/postLoginSplashMessages.ts"
       ],
@@ -18,27 +18,6 @@
       ],
       "testIds": [
         "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-replace-the-single-static-fallback-image-in-the-post-login-splash-used-when-no-motivational-video-is-set-with-a-small-set-of-generated-generic-mugshot-style-visuals-and-randomly-choose-one-each-time-the-splash-is-shown",
-      "featureTitle": "Replace the single static fallback image in the post-login splash (used when no motivational video is set) with a small set of generated, generic \"mugshot-style\" visuals and randomly choose one each time the splash is shown.",
-      "files": [
-        "frontend/src/components/auth/PostLoginSplash.tsx",
-        "frontend/src/utils/postLoginSplashImages.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "blob-storage@4.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
       ],
       "confidence": "high"
     }

@@ -1,65 +1,38 @@
 {
   "kind": "build_request",
-  "title": "Make post-login motivation text and mugshot visuals more intense (accountability-focused)",
+  "title": "Update one post-login splash message text",
   "projectName": "Time4jail",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Revise the post-login splash message pool to be \"extra extra spicy\" in tone while remaining non-profane, non-defamatory, and focused on safety, boundaries, documentation, and legal accountability (update the fixed message list used by the post-login splash).",
+      "text": "Replace the specific post-login splash message string \"Document. Report. Prosecute. Repeat.\" with \"Pervert. Stalker. Loser. Typical man.\" in the fixed splash message pool used by the post-login splash screen.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4"
         ],
         "quotes": [
-          "question for you - can we make the motivation text along with the mug shots to be extra extra spicy towards the stalker?"
+          "can you change just this one to Pervert. Stalker. Loser. Typical man."
         ]
       },
       "acceptanceCriteria": [
-        "frontend/src/utils/postLoginSplashMessages.ts is updated with a refreshed set of messages that feel noticeably more intense/assertive than the current list but avoid slurs, profanity, doxxing, or threats of illegal violence",
-        "Messages remain short splash-friendly lines (generally 1–2 sentences) and are written in English",
-        "The post-login splash continues to display a randomly selected message on each splash view"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Replace the single static fallback image in the post-login splash (used when no motivational video is set) with a small set of generated, generic \"mugshot-style\" visuals and randomly choose one each time the splash is shown.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "question for you - can we make the motivation text along with the mug shots to be extra extra spicy towards the stalker?"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Add a small set of new generated mugshot-style images as static assets under frontend/public/assets/generated and use them as the splash fallback instead of the single hard-coded /assets/5425a899ef3d6.image.jpg reference",
-        "When no motivational video is available (or video fails), PostLoginSplash shows one randomly selected mugshot-style image from the generated set",
-        "When a motivational video is available and loads successfully, PostLoginSplash behavior remains unchanged (video still displays), and the motivation message still displays as it does today"
+        "The string \"Document. Report. Prosecute. Repeat.\" no longer appears in POST_LOGIN_SPLASH_MESSAGES.",
+        "The post-login splash screen can display the new message \"Pervert. Stalker. Loser. Typical man.\" as one of the randomized splash messages.",
+        "No other splash messages are changed."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (shadcn read-only components).",
-    "Do not change Internet Identity hooks (frontend/src/hooks/useInternetIdentity.ts / .tsx) or actor initialization hooks (frontend/src/hooks/useActor.ts).",
-    "Keep all backend logic within the existing single-actor Motoko backend; no new backend services."
+    "Do not modify any other post-login splash messages besides the single specified line.",
+    "Keep all user-facing text in English."
   ],
   "nonGoals": [
-    "Do not add profanity, slurs, or targeted hate content.",
-    "Do not include identifying details about real individuals in text or images.",
-    "Do not add new backend schemas or settings fields for this change."
+    "Changing the splash screen layout, styling, images, or randomization behavior.",
+    "Adding new messages beyond replacing the one specified message."
   ],
   "imageRequirements": {
-    "required": [
-      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-1.dim_1024x1024.png)",
-      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-2.dim_1024x1024.png)",
-      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-3.dim_1024x1024.png)",
-      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-4.dim_1024x1024.png)",
-      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-5.dim_1024x1024.png)",
-      "Generic mugshot-style silhouette portrait, grayscale, subtle height chart background (mugshot-6.dim_1024x1024.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

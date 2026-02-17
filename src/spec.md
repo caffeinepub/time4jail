@@ -1,10 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Make the post-login splash feel more intense and accountability-focused by updating the message pool and rotating generic mugshot-style fallback visuals.
+**Goal:** Update one specific post-login splash message text without changing any other splash messages or UI behavior.
 
 **Planned changes:**
-- Refresh the fixed post-login splash message list to be more assertive/“extra spicy” while staying non-profane, non-defamatory, and focused on safety, boundaries, documentation, and legal accountability.
-- Replace the single static fallback splash image with a small set of generated generic mugshot-style images and randomly select one when no motivational video is available (or when video fails), while keeping existing video behavior unchanged when it loads.
+- Replace the post-login splash message string "Document. Report. Prosecute. Repeat." with "Pervert. Stalker. Loser. Typical man." in the fixed POST_LOGIN_SPLASH_MESSAGES pool.
+- Ensure no other splash messages, styling, layout, or randomization logic are modified.
 
-**User-visible outcome:** After logging in, users see a more intense accountability-focused splash message, and (when no video plays) a randomly selected mugshot-style fallback image instead of the current single fallback.
+**User-visible outcome:** After logging in, the splash screen may display the updated message "Pervert. Stalker. Loser. Typical man." as one of the randomized splash messages.

@@ -10,7 +10,7 @@ export const POST_LOGIN_SPLASH_MESSAGES = [
   "His freedom ends when justice begins.",
   "Every stalker belongs behind bars.",
   "He thought he could get away with it. He was wrong.",
-  "Document. Report. Prosecute. Repeat.",
+  "Pervert. Stalker. Loser. Typical man.",
   "His mugshot is coming.",
   "Zero tolerance. Maximum consequences.",
   "He crossed the line. Now he faces the law.",
